@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/Standard Assets/CNControls/Examples/Scenes/2D.unity
-  isLoaded: 1
-  isActive: 1

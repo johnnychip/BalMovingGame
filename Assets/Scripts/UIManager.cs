@@ -29,6 +29,13 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private Sprite soundOff;
 
+    [Header("Canvas")]
+
+    [SerializeField]
+    private GameObject upperCanvas;
+    [SerializeField]
+    private GameObject menuCanvas;
+
     [Header("Skin")]
 
     [SerializeField]
@@ -38,6 +45,9 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     private Color textColor;
 
+    //Events
+    public delegate void OnPlay();
+    public event OnPlay onPlay;
 
     //Hidden
     private bool audioState = true;
@@ -99,7 +109,11 @@ public class UIManager : MonoBehaviour {
 
     public void Play()
     {
-        Debug.Log("Play"); //TODO: Play
+        upperCanvas.SetActive(false);
+        menuCanvas.SetActive(false);
+
+        if (onPlay != null)
+            onPlay();
     }
 
     public void ShareWithFacebook()

@@ -10,6 +10,13 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private Text globalCoinsText;
 
+    [Header("Game Settings")]
+
+    [SerializeField]
+    private float startVelocity;
+    [SerializeField]
+    private float increaseVelocity;
+
     //Hidden
     public float highScore
     {
@@ -22,6 +29,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public int globalCoins
+    {
+        get; private set;
+    }
+
+    public float velocity
     {
         get; private set;
     }
@@ -46,12 +58,19 @@ public class GameManager : MonoBehaviour {
         
         DontDestroyOnLoad(gameObject);
 
-        globalCoins = PlayerPrefs.GetInt("coins");
+        Setup();
     }
 
     #endregion
 
     #region Class Functions
+
+    public void Setup()
+    {
+        globalCoins = PlayerPrefs.GetInt("coins");
+
+        velocity -= startVelocity;
+    }
 
     public void SetHighScore(float newHighScore)
     {
@@ -89,6 +108,11 @@ public class GameManager : MonoBehaviour {
             return false;
         }
        
+    }
+
+    public void IncreaseVelocity()
+    {
+        velocity -= increaseVelocity;
     }
 
     #endregion

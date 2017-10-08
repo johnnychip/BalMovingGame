@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Class that manage the audio of the game
-/// </summary>
 public class AudioManager : MonoBehaviour {
 
     #region Properties

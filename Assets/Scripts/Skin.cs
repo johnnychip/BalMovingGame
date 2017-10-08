@@ -1,20 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[System.Serializable]
 public class Skin {
 
-	public string name;
+    #region Properties
 
-	public Sprite skinSprite;
+    public string name;
 
-	public int skinCost;
+    public Sprite skinSprite;
 
-	public bool IsOnSale;
+    public int skinCost;
 
-	void LoadStatus()
-	{
-		
-	}
+    public bool isOnSale;
 
+    #endregion
+
+    #region Class Functions
+
+    private void LoadStatus()
+    {
+        Debug.Log("LoadStatus"); //TODO: Load status
+    }
+
+    #endregion
 }

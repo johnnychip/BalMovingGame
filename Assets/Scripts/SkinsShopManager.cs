@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SkinsShopManager : MonoBehaviour {
 
-	[SerializeField]
-	private Skin[] mySkins;
+    #region Properties
 
+    [SerializeField]
+    private Skin[] mySkins;
+
+    #endregion
 }

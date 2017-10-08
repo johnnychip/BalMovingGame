@@ -1,41 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TouchManager : MonoBehaviour {
 
-	[SerializeField]
-	private Rigidbody2D rb;
+    #region Properties
 
-	[SerializeField]
-	private float speed;
+    [SerializeField]
+    private Rigidbody2D rb;
+    [SerializeField]
+    private float speed;
 
-	public bool isRuning;
+    public bool isRuning;
 
+    #endregion
 
-	// Use this for initialization
-	void Start () {
-		isRuning = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if(Input.touchCount>0&&isRuning)
-		{
-			Touch swipeTouch = Input.GetTouch(0);
-			if(swipeTouch.deltaPosition.x!=0)
-					rb.AddForce(Vector2.right*speed*Mathf.Sign(swipeTouch.deltaPosition.x));
-				
-			if(swipeTouch.phase == TouchPhase.Ended)
-			{
-				isRuning = false;
-				Debug.Log("Player lose the game");
-			}
-		}
-	}
+    #region Unity Functions
 
-	public void SetSatateOfPlayer(bool state)
-	{
-		isRuning = state;
-	}
+    private void Start()
+    {
+        isRuning = true;
+    }
+
+    private void Update()
+    {
+        if (Input.touchCount > 0 && isRuning)
+        {
+            Touch swipeTouch = Input.GetTouch(0);
+
+            if (swipeTouch.deltaPosition.x != 0)
+                rb.AddForce(Vector2.right * (speed * Mathf.Sign(swipeTouch.deltaPosition.x)));
+
+            if (swipeTouch.phase == TouchPhase.Ended)
+            {
+                isRuning = false;
+
+                Debug.Log("Player lose the game");
+            }
+        }
+    }
+
+    #endregion
+
+    #region Class Functions
+
+    public void SetSatateOfPlayer(bool state)
+    {
+        isRuning = state;
+    }
+
+    #endregion
 }

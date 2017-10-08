@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private Text currentCoinsText;
-
     [SerializeField]
     private Text globalCoinsText;
 
@@ -67,20 +66,25 @@ public class GameManager : MonoBehaviour {
     public void MergeCoins()
     {
         globalCoins += currentCoins;
+
         currentCoins = 0;
+
         PlayerPrefs.SetInt("coins", globalCoins);
         PlayerPrefs.Save();
     }
 
     public bool SpendCoins(int cost)
     {
-        if(globalCoins >= cost)
+        if (globalCoins >= cost)
         {
             globalCoins -= cost;
+
             PlayerPrefs.SetInt("coins", globalCoins);
             PlayerPrefs.Save();
+
             return true;
-        }else
+        }
+        else
         {
             return false;
         }

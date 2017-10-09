@@ -43,7 +43,7 @@ public class ProceduralGenerator : MonoBehaviour {
         {
             for (int j = 1; j <= numberOfPaths; j++)
             {
-                pathDick.Add(new Vector2(i, j), index);
+                pathDick.Add(new Vector2(i, j), index); //DONE
                 index++;
             }
         }
@@ -93,7 +93,9 @@ public class ProceduralGenerator : MonoBehaviour {
     {
         string[] lastPathCoordinates = lastTarget.name.Split('-');
 
-        int lastPos = Int32.Parse(lastPathCoordinates[1]);
+        string[] lastPathCoordinateEdit = lastPathCoordinates[1].Split('(');
+
+        int lastPos = Int32.Parse(lastPathCoordinateEdit[0]);
 
         int poolIndex = pathDick[new Vector2(
             lastPos,
@@ -120,8 +122,10 @@ public class ProceduralGenerator : MonoBehaviour {
         //Last target pool release
         string[] lastPathCoordinates = lastTarget.name.Split('-');
 
+        string[] lastPathCoordinateEdit = lastPathCoordinates[1].Split('(');
+
         int xComponent = Int32.Parse(lastPathCoordinates[0]);
-        int yComponent = Int32.Parse(lastPathCoordinates[1]);
+        int yComponent = Int32.Parse(lastPathCoordinateEdit[0]);
 
         Vector2 lastPos = new Vector2(xComponent, yComponent);
 

@@ -6,8 +6,12 @@ public class TouchManager : MonoBehaviour {
 
     [SerializeField]
     private Rigidbody2D rb;
+
     [SerializeField]
     private float speed;
+
+    [SerializeField]
+    private GameObject loseMenu;
 
     public bool isRuning;
 
@@ -31,9 +35,8 @@ public class TouchManager : MonoBehaviour {
 
             if (swipeTouch.phase == TouchPhase.Ended)
             {
-                isRuning = false;
-
                 Debug.Log("Player lose the game");
+                SetSatateOfPlayer(false);             
             }
         }
     }
@@ -45,6 +48,15 @@ public class TouchManager : MonoBehaviour {
     public void SetSatateOfPlayer(bool state)
     {
         isRuning = state;
+        if(!state)
+        {
+            SetEndGame();
+        }
+    }
+
+    public void SetEndGame()
+    {
+        loseMenu.gameObject.SetActive(true);
     }
 
     #endregion

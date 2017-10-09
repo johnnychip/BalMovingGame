@@ -23,13 +23,10 @@ public class ProceduralGenerator : MonoBehaviour {
 
     #region Unity Functions
 
-    private void Awake()
-    {
-        Setup();
-    }
-
     private void Start()
     {
+        Setup();
+
         UIManager.Instance.onPlay += ExecuteGeneration;
     }
 
@@ -66,14 +63,14 @@ public class ProceduralGenerator : MonoBehaviour {
         */
 
         //Path setup
-        GameObject path = PoolManager.Instance.GetObject(spawnPoint.position, 5);
+        GameObject path = PoolManager.Instance.GetObject(Vector3.zero, 5);
 
         lastTarget = path.transform;
     }
 
     private void ExecuteGeneration()
     {
-        lastTarget.GetComponent<Rigidbody2D>().velocity = new Vector2(0, GameManager.Instance.velocity);
+        lastTarget.GetComponent<Rigidbody2D>().velocity = Vector2.up * GameManager.Instance.velocity;
 
         ExecuteRecordPath();
     }
@@ -81,23 +78,28 @@ public class ProceduralGenerator : MonoBehaviour {
     private void ExecuteRecordPath()
     {
         //Set new path
-        string[] lastPathCoordinate = lastTarget.name.Split('-');
-
-        int lastPos = Convert.ToInt32(lastPathCoordinate[1]);
-
-        int poolIndex = pathDick[new Vector2(
-            lastPos,
-            UnityEngine.Random.Range(1, 4))];
-
-        GameObject newPath = PoolManager.Instance.GetObject(spawnPoint.position, poolIndex);
+        Transform newPath = GetNewPath();
 
         //Corutine logic
         if (recordPath != null)
             StopCoroutine(recordPath);
 
-        recordPath = RecordPath(newPath.transform);
+        recordPath = RecordPath(newPath);
 
         StartCoroutine(recordPath);
+    }
+
+    private Transform GetNewPath()
+    {
+        string[] lastPathCoordinates = lastTarget.name.Split('-');
+
+        int lastPos = Int32.Parse(lastPathCoordinates[1]);
+
+        int poolIndex = pathDick[new Vector2(
+            lastPos,
+            UnityEngine.Random.Range(1, numberOfPaths + 1))];
+
+        return PoolManager.Instance.GetObject(spawnPoint.position, poolIndex).transform;
     }
 
     #endregion
@@ -106,16 +108,29 @@ public class ProceduralGenerator : MonoBehaviour {
 
     private IEnumerator RecordPath(Transform target)
     {
-        target.GetComponent<Rigidbody2D>().velocity = new Vector2(0, GameManager.Instance.velocity);
+        this.target = target;
 
-        while (target.position.y > 0)
+        this.target.GetComponent<Rigidbody2D>().velocity = Vector2.up * GameManager.Instance.velocity;
+
+        while (this.target.position.y > 0)
         {
             yield return null;
         }
 
-        //PoolManager.Instance.ReleaseObject();
+        //Last target pool release
+        string[] lastPathCoordinates = lastTarget.name.Split('-');
 
-        lastTarget = target;
+        int xComponent = Int32.Parse(lastPathCoordinates[0]);
+        int yComponent = Int32.Parse(lastPathCoordinates[1]);
+
+        Vector2 lastPos = new Vector2(xComponent, yComponent);
+
+        int poolIndex = pathDick[lastPos];
+
+        PoolManager.Instance.ReleaseObject(lastTarget.gameObject, poolIndex);
+
+        //Set new last target
+        lastTarget = this.target;
     }
 
     #endregion

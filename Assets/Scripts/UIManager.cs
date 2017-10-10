@@ -5,6 +5,13 @@ public class UIManager : MonoBehaviour {
 
     #region Properties
 
+    [Header("Scripts")]
+
+
+    [SerializeField]
+    private FacebookManager myFacebookManager;
+
+
     [Header("Texts")]
 
     [SerializeField]
@@ -119,6 +126,7 @@ public class UIManager : MonoBehaviour {
     public void ShareWithFacebook()
     {
         Debug.Log("ShareWithFacebook"); //TODO: Share with Facebook
+        myFacebookManager.Share();
     }
 
     public void ShareWithTwitter()

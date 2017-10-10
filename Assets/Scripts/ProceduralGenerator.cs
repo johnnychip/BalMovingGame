@@ -37,7 +37,7 @@ public class ProceduralGenerator : MonoBehaviour {
     private void Setup()
     {
         //Dictionary setup
-        int index = 1;
+        int index = 0;
 
         for (int i = 1; i <= numberOfPaths; i++)
         {
@@ -51,15 +51,15 @@ public class ProceduralGenerator : MonoBehaviour {
         //For loop explanation:
 
         /*
-        pathDic.Add(new Vector2(1, 1), 1);
-        pathDic.Add(new Vector2(1, 2), 2);
-        pathDic.Add(new Vector2(1, 3), 3);
-        pathDic.Add(new Vector2(2, 1), 4);
-        pathDic.Add(new Vector2(2, 2), 5);
-        pathDic.Add(new Vector2(2, 3), 6);
-        pathDic.Add(new Vector2(3, 1), 7);
-        pathDic.Add(new Vector2(3, 2), 8);
-        pathDic.Add(new Vector2(3, 3), 9);
+        pathDic.Add(new Vector2(1, 1), 0);
+        pathDic.Add(new Vector2(1, 2), 1);
+        pathDic.Add(new Vector2(1, 3), 2);
+        pathDic.Add(new Vector2(2, 1), 3);
+        pathDic.Add(new Vector2(2, 2), 4);
+        pathDic.Add(new Vector2(2, 3), 5);
+        pathDic.Add(new Vector2(3, 1), 6);
+        pathDic.Add(new Vector2(3, 2), 7);
+        pathDic.Add(new Vector2(3, 3), 8);
         */
 
         //Path setup
@@ -135,6 +135,8 @@ public class ProceduralGenerator : MonoBehaviour {
 
         //Set new last target
         lastTarget = this.target;
+
+        ExecuteGeneration();
     }
 
     #endregion

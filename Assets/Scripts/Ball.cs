@@ -4,9 +4,6 @@ public class Ball : MonoBehaviour {
 
     #region Properties
 
-    [SerializeField]
-    private TouchManager myTouchManager;
-
     #endregion
 
     #region Unity Functions
@@ -15,16 +12,19 @@ public class Ball : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Coin"))
         {
-            GameManager.Instance.DoCatchCoin();
+            GameManager.Instance.IncreaseCoins();
             other.gameObject.SetActive(false);
         }
 
         if (other.gameObject.CompareTag("DeathZone"))
         {
-            myTouchManager.SetSatateOfPlayer(false);
+            TouchManager.Instance.SetSatateOfPlayer(false);
+            GameManager.Instance.End();
             Debug.Log("Show Menu & Stop Scrolling");
         }
     }
+
+
 
     #endregion
 }

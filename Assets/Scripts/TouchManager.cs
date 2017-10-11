@@ -19,9 +19,22 @@ public class TouchManager : MonoBehaviour {
 
     #region Unity Functions
 
-    private void Start()
+    public static TouchManager Instance
     {
-        isRuning = true;
+        get;
+        private set;
+    }
+
+    private void Awake ()
+    {
+        if (Instance != null)
+            DestroyImmediate(gameObject);
+        else
+            Instance = this; 
+        
+        DontDestroyOnLoad(gameObject);
+
+        UIManager.Instance.onPlay += SetGameStart;
     }
 
     private void Update()
@@ -50,13 +63,13 @@ public class TouchManager : MonoBehaviour {
         isRuning = state;
         if(!state)
         {
-            SetEndGame();
+            GameManager.Instance.End();
         }
     }
 
-    public void SetEndGame()
+    public void SetGameStart()
     {
-        loseMenu.gameObject.SetActive(true);
+        isRuning = true;
     }
 
     #endregion

@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour {
         get; private set;
     }
 
+    //Events
+
+    public delegate void OnEnd();
+    public event OnEnd onEnd;
+
     //Singleton!
     public static GameManager Instance
     {
@@ -72,12 +77,18 @@ public class GameManager : MonoBehaviour {
         velocity -= startVelocity;
     }
 
+    public void End()
+    {
+        if(onEnd!=null)
+            onEnd();
+    }
+
     public void SetHighScore(float newHighScore)
     {
         highScore = newHighScore;
     }
 
-    public void DoCatchCoin()
+    public void IncreaseCoins()
     {
         currentCoins++;
     }

@@ -56,6 +56,9 @@ public class UIManager : MonoBehaviour {
     public delegate void OnPlay();
     public event OnPlay onPlay;
 
+    public delegate void OnRestart();
+    public event OnPlay onRestart;
+
     //Hidden
     private bool audioState = true;
     
@@ -77,6 +80,7 @@ public class UIManager : MonoBehaviour {
             Instance = this;
 
         DontDestroyOnLoad(gameObject);
+        GameManager.Instance.onEnd += SetEndMenu;
     }
 
     private void Start()
@@ -110,6 +114,11 @@ public class UIManager : MonoBehaviour {
         soundIcon.color = iconsColor;
     }
 
+    public void SetEndMenu()
+    {
+
+    }
+
     #endregion
 
     #region Buttons Functions
@@ -122,6 +131,12 @@ public class UIManager : MonoBehaviour {
         if (onPlay != null)
             onPlay();
     }
+
+    public void Restart()
+    {
+        
+    }
+
 
     public void ShareWithFacebook()
     {
